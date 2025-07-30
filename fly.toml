@@ -1,0 +1,30 @@
+# fly.toml app configuration file generated for copyparty-little-smoke-8321 on 2025-07-30T11:42:06-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'copyparty-little-smoke-8321'
+primary_region = 'ord'
+
+[build]
+  image = "copyparty/dj:latest"
+
+[env]
+  PORT = '80'
+
+[http_service]
+  internal_port = 80 
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[[files]]
+  guest_path="/cfg/copyparty.conf"
+  local_path="config/copyparty.conf"
